@@ -7,9 +7,9 @@ function join(){
     var password = $("#inputPassword").val();
     var passwordConfirm = $("#inputPasswordConfirm").val();
 
-    alert(id);
-    alert(password);
-    alert(passwordConfirm);
+    // alert(id);
+    // alert(password);
+    // alert(passwordConfirm);
 
     if(password == passwordConfirm) {
         $.ajax({
@@ -24,6 +24,7 @@ function join(){
             success : function(result){
 
                 alert(id+"님 가입이 완료 되었습니다.");
+                $(location).attr("href", "index.html");
             },
             error : function() {
                 alert("이미 존재하는 E-mail입니다.");

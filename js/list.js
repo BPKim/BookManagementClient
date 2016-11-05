@@ -1,18 +1,11 @@
+var userState;
+// var state;
+var id;
 var logout;
 var login;
-var userId;
 
 $(document).ready(function() {
-	table = $("#userState").css("overflow", "auto");
-
-	state = $("<li></li>").css("float", "left").css("color","white");
-	id = $("<li></li>").css("float", "left");
-	logout = $("<button type='button' class='btn btn-sm btn-default'>Logout</button>");
-	login = $("<button type='button'  class='btn btn-sm btn-default'>Login</button>");
-
-	logout.attr("onclick", "out()")
-	login.attr("onclick","location.href='login.html'");
-
+	userState = $("#userState").css("float", "left");;
 	$.ajax({
 		url : "http://localhost:7070/book/memberState",
 		type : "GET",
@@ -24,15 +17,12 @@ $(document).ready(function() {
 		success : function(result){
 
 			if(result.ID==null){
-				state.append(login)  ;
-				table.append(state);
-				$(location).attr("href", "index.html");
+				userState.text("LogIn").attr("onclick","location.href='login.html'");
+				$("#dropdown-menu").hide();
 			}else{
-				userId=result.ID;
-				id.text(result.ID);
-				state.append(id);
-				state.append(logout);
-				table.append(state);
+
+				userState.text(result.ID);
+
 			}
 		},
 		error : function() {
@@ -52,11 +42,8 @@ function out() {
 			id: "id"
 		},
 		success: function (result) {
-			// state.append(id);
-			id.empty();
-			state.append(login);
-			table.append(state);
-			logout.remove();
+			userState.text("LogIn").attr("onclick","location.href='login.html'");
+			$("#dropdown-menu").hide();
 			$(location).attr("href", "index.html");
 		},
 		error: function () {
@@ -180,7 +167,7 @@ function searchBook(){
 
 
 function mySort() {
-	var rows = $("table").find("tbody>tr").get();
+	var rows = $("userState").find("tbody>tr").get();
 	rows.sort(function (a, b) {
 		var keyA = $(a).children("td").eq(3).text();
 		var keyB = $(b).children("td").eq(3).text();
@@ -192,7 +179,7 @@ function mySort() {
 	});
 
 	$.each(rows, function (idx, row) {
-		$("table").children("tbody").append(row);
+		$("userState").children("tbody").append(row);
 	});
 }
 
@@ -362,7 +349,7 @@ $(document).on('click', '#detaBtn', function () {
 		success: function (result) {
 
 
-			var table = $("<table></table>");
+			var table = $("<userState></userState>");
 			var tbody = $("<tbody></tbody>");
 
 			var dateTr = $("<tr></tr>");
@@ -428,7 +415,7 @@ $(document).on('click', '#comseeBtn', function () {
 
 	var tddd = $("<td colspan='5'></td>");
 	// var comDiv = $("<div ></div>")
-	var comTa = $("<table class='table table-striped'></table>");
+	var comTa = $("<userState class='userState userState-striped'></userState>");
 	var comHead = $("<thead></thead>");
 	var comTr=$("<tr></tr>")
 	var titleTh=$("<th></th>").text("제목");
@@ -550,7 +537,7 @@ $(document).on('click', '#comwriteBtn', function () {
 
 	var comtr = $("<tr></tr>");
 	var comDiv = $("<div ></div>")
-	var comTa = $("<table class='table table-striped'></table>");
+	var comTa = $("<userState class='userState userState-striped'></userState>");
 
 	var comTb = $("<tbody></tbody>");
 

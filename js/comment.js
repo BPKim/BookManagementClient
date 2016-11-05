@@ -1,18 +1,11 @@
+var userState;
+// var state;
+var id;
 var logout;
 var login;
-var userId;
 
 $(document).ready(function() {
-	table = $("#userState").css("overflow", "auto");
-
-	state = $("<li></li>").css("float", "left").css("color","white");
-	id = $("<li></li>").css("float", "left");
-	logout = $("<button type='button' class='btn btn-sm btn-default'>Logout</button>");
-	login = $("<button type='button'  class='btn btn-sm btn-default'>Login</button>");
-
-	logout.attr("onclick", "out()")
-	login.attr("onclick","location.href='login.html'");
-
+	userState = $("#userState").css("float", "left");;
 	$.ajax({
 		url : "http://localhost:7070/book/memberState",
 		type : "GET",
@@ -23,22 +16,12 @@ $(document).ready(function() {
 		},
 		success : function(result){
 
-			//id.text(result);
-			// alert(result.ID);
 			if(result.ID==null){
-				// id.text(result);
-				// state.append(id);
-				// logout.remove();
-				state.append(login)  ;
-				table.append(state);
-				$(location).attr("href", "index.html");
+				userState.text("LogIn").attr("onclick","location.href='login.html'");
+				$("#dropdown-menu").hide();
 			}else{
-				// alert(result.ID);
-				userId=result.ID;
-				id.text(result.ID);
-				state.append(id);
-				state.append(logout);
-				table.append(state);
+
+				userState.text(result.ID);
 
 			}
 		},
@@ -60,11 +43,8 @@ function out() {
 			id: "id"
 		},
 		success: function (result) {
-			// state.append(id);
-			id.empty();
-			state.append(login);
-			table.append(state);
-			logout.remove();
+			userState.text("LogIn").attr("onclick","location.href='login.html'");
+			$("#dropdown-menu").hide();
 			$(location).attr("href", "index.html");
 		},
 		error: function () {
@@ -131,7 +111,7 @@ function searchComments(){
 
 
 function mySort() {
-	var rows = $("table").find("tbody>tr").get();
+	var rows = $("userState").find("tbody>tr").get();
 	rows.sort(function (a, b) {
 		var keyA = $(a).children("td").eq(3).text();
 		var keyB = $(b).children("td").eq(3).text();
@@ -143,7 +123,7 @@ function mySort() {
 	});
 
 	$.each(rows, function (idx, row) {
-		$("table").children("tbody").append(row);
+		$("userState").children("tbody").append(row);
 	});
 }
 
@@ -320,7 +300,7 @@ $(document).on('click', '#detaBtn', function () {
 		success: function (result) {
 
 
-			var table = $("<table></table>");
+			var userState = $("<userState></userState>");
 			var tbody = $("<tbody></tbody>");
 
 			var dateTr = $("<tr></tr>");
@@ -365,9 +345,9 @@ $(document).on('click', '#detaBtn', function () {
 				tbody.append(supplementTr);
 				tbody.append(publisherTr);
 
-				table.append(tbody);
+				userState.append(tbody);
 
-				ta.append(table);
+				ta.append(userState);
 
 
 		},
@@ -386,7 +366,7 @@ $(document).on('click', '#comseeBtn', function () {
 
 	var comtr = $("<tr></tr>");
 	var comDiv = $("<div ></div>")
-	var comTa = $("<table class='table table-striped'></table>");
+	var comTa = $("<userState class='userState userState-striped'></userState>");
 
 	var comTb = $("<tbody></tbody>");
 
@@ -505,7 +485,7 @@ $(document).on('click', '#comTr', function () {
 	var thTr = $(this);
 	var infoTableTr = $("<tr></tr>")
 	var infoTd =  $("<td colspan='5'></td>")
-	var infoTable = $("<table class='table table-striped'></table>");
+	var infoTable = $("<userState class='userState userState-striped'></userState>");
 	var infoHead = $("<thead></thead>");
 	var infoTr=$("<tr></tr>")
 	var img=$("<img>")

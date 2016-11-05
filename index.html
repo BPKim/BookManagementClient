@@ -49,7 +49,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">도서관리시스템</a>
+                    <a class="navbar-brand" href="#">BP's Library</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -57,9 +57,19 @@
                         <li><a href="list.html">도서 관리 및 검색</a></li>
                         <li><a href="rent.html">도서 대여 및 반납</a></li>
                         <li><a href="#comment">도서 서평 관리</a></li>
-
+                        <li class="dropdown">
+                            <a href="#" id="userState" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret">
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="rentUser.html">내 대여 목록 보기</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" onclick="out()">Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                    <table id="userState"></table>
+
                 </div>
             </div>
         </nav>

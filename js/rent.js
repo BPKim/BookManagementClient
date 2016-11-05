@@ -1,18 +1,11 @@
+var userState;
+var userId;
+var id;
 var logout;
 var login;
-var userId;
 
 $(document).ready(function() {
-	table = $("#userState").css("overflow", "auto");
-
-	state = $("<li></li>").css("float", "left").css("color","white");
-	id = $("<li></li>").css("float", "left");
-	logout = $("<button type='button' class='btn btn-sm btn-default'>Logout</button>");
-	login = $("<button type='button'  class='btn btn-sm btn-default'>Login</button>");
-
-	logout.attr("onclick", "out()")
-	login.attr("onclick","location.href='login.html'");
-
+	userState = $("#userState").css("float", "left");;
 	$.ajax({
 		url : "http://localhost:7070/book/memberState",
 		type : "GET",
@@ -24,15 +17,12 @@ $(document).ready(function() {
 		success : function(result){
 
 			if(result.ID==null){
-				state.append(login)  ;
-				table.append(state);
-				$(location).attr("href", "index.html");
+				userState.text("LogIn").attr("onclick","location.href='login.html'");
+				$("#dropdown-menu").hide();
 			}else{
-				userId=result.ID;
-				id.text(result.ID);
-				state.append(id);
-				state.append(logout);
-				table.append(state);
+				userId =result.ID;
+				userState.text(userId);
+
 			}
 		},
 		error : function() {
@@ -52,11 +42,8 @@ function out() {
 			id: "id"
 		},
 		success: function (result) {
-			// state.append(id);
-			id.empty();
-			state.append(login);
-			table.append(state);
-			logout.remove();
+			userState.text("LogIn").attr("onclick","location.href='login.html'");
+			$("#dropdown-menu").hide();
 			$(location).attr("href", "index.html");
 		},
 		error: function () {
@@ -67,6 +54,8 @@ function out() {
 
 function searchBookRent(){
 
+	inputUser =$("#keyword").val();
+
 	if(event.keyCode == 13){
 
 		$.ajax({
@@ -75,7 +64,7 @@ function searchBookRent(){
 			dataType : "jsonp",
 			jsonp : "callback",
 			data : {
-				keyword : $("#keyword").val()
+				keyword : inputUser
 			},
 			success : function(data){
 
@@ -137,6 +126,11 @@ $(document).on('click', '#returnBtn', function () {
 	var nowTd = $(this).parent().parent().find("td:nth-child(4)");
 	var stateTd = $(this).parent().parent().find("td:nth-child(5)");
 
+	if(userId!=inputUser){
+		alert("다른 사람이 대여 대여한 책이라 반납할 수 없습니다.")
+		return;
+	}
+
 	$.ajax({
 		url: "http://localhost:7070/book/returnBook",
 		type: "GET",
@@ -191,7 +185,7 @@ $(document).on('click', '#rentBtn', function () {
 				stateTd.append(returnBtn);
 				alert("대여 성공")
 			}else{
-				alert("대여 권수가 초과했습니다.")
+				alert("대여 권수를 초과했습니다.")
 			}
 		},
 		error: function () {
