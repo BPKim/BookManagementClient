@@ -1,5 +1,5 @@
 var userState;
-// var state;
+var userId;
 var id;
 var logout;
 var login;
@@ -22,7 +22,7 @@ $(document).ready(function() {
 			}else{
 
 				userState.text(result.ID);
-
+				userId = result.ID;
 			}
 		},
 		error : function() {
@@ -548,7 +548,7 @@ $(document).on('click', '#comwriteBtn', function () {
 	var dateTd = $("<td></td>").text(da);
 	var saveTd = $("<td></td>")
 
-	alert(commentTr.attr("data-isbn"))
+	// alert(commentTr.attr("data-isbn"))
 	var titleIn = $("<input />").attr("type", "text").attr("placeholder","제목");
 	var textIn = $("<input />").attr("type", "text").attr("placeholder", "내용");
 	// var authorIn = $("<input />").attr("type", "text");
