@@ -17,8 +17,7 @@ $(document).ready(function() {
 		success : function(result){
 
 			if(result.ID==null){
-				userState.text("LogIn").attr("onclick","location.href='login.html'");
-				$("#dropdown-menu").hide();
+				$(location).attr("href", "index.html");
 			}else{
 				userId =result.ID;
 				userState.text(userId);
@@ -42,8 +41,6 @@ function out() {
 			id: "id"
 		},
 		success: function (result) {
-			userState.text("LogIn").attr("onclick","location.href='login.html'");
-			$("#dropdown-menu").hide();
 			$(location).attr("href", "index.html");
 		},
 		error: function () {
@@ -72,14 +69,12 @@ function searchBookRent(){
 				for(var i = 0 ; i < data.length ; i++) {
 
 					var tr = $("<tr></tr>").attr("data-isbn", data[i].isbn);
-					// var tr = $("<tr></tr>").attr("id", data[i].isbn);
-					var img = $("<img />").attr("src", data[i].img);
+					var img = $("<img width='145' height='199'/>").attr("src", data[i].img);
 					var imgTd = $("<td></td>").append(img);
 					var titleTd = $("<td></td>").text(data[i].title);
 					var authorTd = $("<td></td>").text(data[i].author);
 					var whoTd = $("<td></td>").text(data[i].rent);
 					var rentTd = $("<td></td>");
-					// var delTd = $("<td></td>");
 
 					if(data[i].rent==null){
 						var rentBtn = $("<input>");
@@ -117,7 +112,6 @@ $(document).on('click', '#returnBtn', function () {
 
 	var isbn = $(this).parent().parent().attr("data-isbn");
 
-	// alert(isbn+" "+userId);
 	var rentBtn = $("<input>");
 	rentBtn.attr("type", "button");
 	rentBtn.attr("value", "대여하기");
@@ -127,7 +121,7 @@ $(document).on('click', '#returnBtn', function () {
 	var stateTd = $(this).parent().parent().find("td:nth-child(5)");
 
 	if(userId!=inputUser){
-		alert("다른 사람이 대여 대여한 책이라 반납할 수 없습니다.")
+		alert("다른 사람이 대여한 책이라 반납할 수 없습니다.")
 		return;
 	}
 
@@ -160,7 +154,6 @@ $(document).on('click', '#rentBtn', function () {
 
 	var isbn = $(this).parent().parent().attr("data-isbn");
 
-	// alert(isbn+" "+userId);
 	var returnBtn = $("<input>");
 	returnBtn.attr("type", "button");
 	returnBtn.attr("value", "대여중 반납");

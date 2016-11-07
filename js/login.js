@@ -1,7 +1,12 @@
 /**
  * Created by CJuser on 2016-11-03.
  */
+function loginEnter() {
+    if (event.keyCode == 13) {
 
+        login();
+    }
+}
 function login(){
     var id = $("#inputEmail").val();
     var password = $("#inputPassword").val();
@@ -9,6 +14,7 @@ function login(){
     if(password==''){
         return;
     }
+
 
     $.ajax({
         url : "http://localhost:7070/book/memberLogin",

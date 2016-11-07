@@ -1,12 +1,9 @@
 var userState;
-// var state;
 var id;
 var logout;
-var login;
 
 $(document).ready(function() {
     userState = $("#userState");
-
 
     $.ajax({
         url : "http://localhost:7070/book/memberState",
@@ -19,12 +16,11 @@ $(document).ready(function() {
         success : function(result){
 
             if(result.ID==null){
-                userState.text("LogIn").attr("onclick","location.href='login.html'");
-                $("#dropdown-menu").hide();
+                $("#userli").hide();
             }else{
 
                 userState.text(result.ID);
-
+                $("#login").hide();
             }
         },
         error : function() {
@@ -35,7 +31,6 @@ $(document).ready(function() {
 
 });
 
-// $(document).on('click', '#logout', function() {
 function out() {
     $.ajax({
         url: "http://localhost:7070/book/memberLogout",
@@ -46,13 +41,11 @@ function out() {
             id: "id"
         },
         success: function (result) {
-            userState.text("LogIn").attr("onclick","location.href='login.html'");
-            $("#dropdown-menu").hide();
-            $(location).attr("href", "index.html");
+            $("#userli").hide();
+            $("#login").show();
         },
         error: function () {
             alert("로그아웃 상태 에러 발생");
         }
     });
 }
-// });
